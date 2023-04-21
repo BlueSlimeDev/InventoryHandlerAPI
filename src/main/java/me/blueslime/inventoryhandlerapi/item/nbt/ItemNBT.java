@@ -2,9 +2,7 @@ package me.blueslime.inventoryhandlerapi.item.nbt;
 
 import java.lang.reflect.Method;
 
-import me.blueslime.inventoryhandlerapi.item.reflection.BukkitEnum;
-import me.blueslime.inventoryhandlerapi.item.reflection.MinecraftEnum;
-import me.blueslime.inventoryhandlerapi.item.reflection.ReferencedMethodException;
+import me.blueslime.nmshandlerapi.utils.presets.Presets;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
@@ -40,8 +38,8 @@ public class ItemNBT {
         );
 
         try {
-            Class<?> nbtCompound = MinecraftEnum.NBT_COMPOUND.getBukkitProvided();
-            Class<?> itemStack = BukkitEnum.CRAFT_ITEM.getBukkitProvided();
+            Class<?> nbtCompound = Presets.NBT_COMPOUND.getResult();
+            Class<?> itemStack = Presets.CRAFT_ITEM.getResult();
 
             this.reflectionItem = itemStack.getMethod("asNMSCopy", ItemStack.class);
 
@@ -61,7 +59,7 @@ public class ItemNBT {
                 this.setTag = item.getMethod("c", nbtCompound);
 
                 secondAttempt();
-            } else if (isSpecified("v1_19_R1")) {
+            } else if (isSpecified("v1_19_R1") || isSpecified("v1_19_R2") || isSpecified("v1_19_R3")) {
                 this.hasTag = item.getMethod("t");
                 this.getTag = item.getMethod("u");
                 this.setTag = item.getMethod("c", nbtCompound);
@@ -81,7 +79,7 @@ public class ItemNBT {
     }
 
     public void secondAttempt() {
-        Class<?> nbtCompound = MinecraftEnum.NBT_COMPOUND.getBukkitProvided();
+        Class<?> nbtCompound = Presets.NBT_COMPOUND.getResult();
 
         try {
             this.setString = nbtCompound.getMethod("a", String.class, String.class);
@@ -90,13 +88,7 @@ public class ItemNBT {
             try {
                 this.setString = nbtCompound.getMethod("putString", String.class, String.class);
                 this.getString = nbtCompound.getMethod("getString", String.class);
-            } catch (Exception throwedException) {
-                Exception exception = new ReferencedMethodException(MinecraftEnum.NBT_COMPOUND, version);
-
-                exception.addSuppressed(throwedException);
-
-                exception.printStackTrace();
-            }
+            } catch (Exception ignored2) {}
         }
     }
 
@@ -111,7 +103,7 @@ public class ItemNBT {
             if (hasTag) {
                 tag = getTag.invoke(item);
             } else {
-                tag = MinecraftEnum.NBT_COMPOUND.getBukkitProvided()
+                tag = Presets.NBT_COMPOUND.getResult()
                         .getConstructor()
                         .newInstance();
             }
