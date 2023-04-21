@@ -41,6 +41,10 @@ public class InventoryClickListener implements Listener {
 
             CustomInventory customInventory = InventoryHandlerAPI.getInventories().get(invId);
 
+            if (customInventory == null) {
+                return;
+            }
+
             String tag = ItemNBT.fromString(current, InventoryHandlerAPI.getCustomPrefix() + customInventory.getId());
 
             if (tag != null && !tag.isEmpty()) {
