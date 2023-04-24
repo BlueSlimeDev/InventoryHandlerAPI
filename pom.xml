@@ -6,7 +6,7 @@
 
     <groupId>me.blueslime.inventoryhandlerapi</groupId>
     <artifactId>InventoryHandlerAPI</artifactId>
-    <version>0.7</version>
+    <version>0.8</version>
     <packaging>jar</packaging>
 
     <name>InventoryHandlerAPI</name>
@@ -85,7 +85,7 @@
         <dependency>
             <groupId>com.github.BlueSlimeDev</groupId>
             <artifactId>NMSHandlerAPI</artifactId>
-            <version>0.2</version>
+            <version>0.3</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
