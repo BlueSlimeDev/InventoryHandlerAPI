@@ -29,7 +29,7 @@ public class DynamicInventory extends CustomInventory {
         for (InventoryItem item : getItemStorage().getValues()) {
             InventoryItem inventoryItem = getItemBuilder().processItem(
                     player,
-                    item
+                    item.copy()
             );
 
             ItemStack itemStack = inventoryItem.getItemStack();

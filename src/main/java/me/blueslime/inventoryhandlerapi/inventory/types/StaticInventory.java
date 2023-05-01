@@ -25,7 +25,7 @@ public class StaticInventory extends CustomInventory {
         for (InventoryItem item : getItemStorage().getValues()) {
             InventoryItem inventoryItem = getItemBuilder().processItem(
                     null,
-                    item
+                    item.copy()
             );
 
             ItemStack itemStack = inventoryItem.getItemStack();

@@ -35,7 +35,7 @@ Dependency:
             <artifactId>InventoryHandlerAPI</artifactId>
             <version>TAG</version>
             <!-- TAG = latest version, for example:
-            <version>0.8</version>
+            <version>0.9</version>
             -->
         </dependency>
 ```

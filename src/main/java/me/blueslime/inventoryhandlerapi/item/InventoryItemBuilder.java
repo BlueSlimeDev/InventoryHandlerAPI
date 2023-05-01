@@ -40,7 +40,7 @@ public class InventoryItemBuilder {
     }
 
     public InventoryItem build() {
-        return InventoryItem.fromItem(
+        return DefaultInventoryItem.fromItem(
                 identifier,
                 slot,
                 itemStack,
