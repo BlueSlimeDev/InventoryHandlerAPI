@@ -42,14 +42,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>me.blueslime.nmshandlerapi</pattern>
-                            <shadedPattern>me.blueslime.inventoryhandlerapi.nms</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
             </plugin>
         </plugins>
         <resources>
