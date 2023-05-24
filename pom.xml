@@ -84,9 +84,9 @@
         </dependency>
         <dependency>
             <groupId>com.github.BlueSlimeDev</groupId>
-            <artifactId>NMSHandlerAPI</artifactId>
-            <version>0.3</version>
-            <scope>compile</scope>
+            <artifactId>UtilitiesAPI</artifactId>
+            <version>0.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

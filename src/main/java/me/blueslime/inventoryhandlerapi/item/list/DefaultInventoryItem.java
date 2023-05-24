@@ -1,5 +1,7 @@
-package me.blueslime.inventoryhandlerapi.item;
+package me.blueslime.inventoryhandlerapi.item.list;
 
+import me.blueslime.inventoryhandlerapi.item.InventoryItem;
+import me.blueslime.inventoryhandlerapi.item.list.builder.DefaultInventoryItemBuilder;
 import me.blueslime.inventoryhandlerapi.item.action.InventoryItemAction;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -50,16 +52,16 @@ public class DefaultInventoryItem implements InventoryItem {
         return fromItem(identifier, -1, itemStack, false, null);
     }
 
-    public static InventoryItemBuilder builder(String identifier, int slot) {
-        return new InventoryItemBuilder(identifier, slot);
+    public static DefaultInventoryItemBuilder builder(String identifier, int slot) {
+        return new DefaultInventoryItemBuilder(identifier, slot);
     }
 
-    public static InventoryItemBuilder builder(String identifier) {
-        return new InventoryItemBuilder(identifier, -1);
+    public static DefaultInventoryItemBuilder builder(String identifier) {
+        return new DefaultInventoryItemBuilder(identifier, -1);
     }
 
-    public InventoryItemBuilder asBuilder() {
-        return new InventoryItemBuilder(
+    public DefaultInventoryItemBuilder asBuilder() {
+        return new DefaultInventoryItemBuilder(
                 this.identifier,
                 this.slot
         ).action(

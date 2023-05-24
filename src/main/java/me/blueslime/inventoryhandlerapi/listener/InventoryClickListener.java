@@ -4,7 +4,7 @@ import me.blueslime.inventoryhandlerapi.InventoryHandlerAPI;
 import me.blueslime.inventoryhandlerapi.event.CustomInventoryClickEvent;
 import me.blueslime.inventoryhandlerapi.inventory.CustomInventory;
 import me.blueslime.inventoryhandlerapi.item.InventoryItem;
-import me.blueslime.inventoryhandlerapi.item.nbt.ItemNBT;
+import me.blueslime.utilitiesapi.item.nbt.ItemNBT;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

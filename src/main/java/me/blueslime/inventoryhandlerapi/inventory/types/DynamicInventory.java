@@ -3,8 +3,9 @@ package me.blueslime.inventoryhandlerapi.inventory.types;
 import me.blueslime.inventoryhandlerapi.InventoryHandlerAPI;
 import me.blueslime.inventoryhandlerapi.inventory.CustomInventory;
 import me.blueslime.inventoryhandlerapi.item.InventoryItem;
-import me.blueslime.inventoryhandlerapi.item.nbt.ItemNBT;
 
+import me.blueslime.inventoryhandlerapi.item.list.WrapperInventoryItem;
+import me.blueslime.utilitiesapi.item.nbt.ItemNBT;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,10 +28,19 @@ public class DynamicInventory extends CustomInventory {
         }
 
         for (InventoryItem item : getItemStorage().getValues()) {
-            InventoryItem inventoryItem = getItemBuilder().processItem(
-                    player,
-                    item.copy()
-            );
+            InventoryItem inventoryItem;
+
+            if (item instanceof WrapperInventoryItem) {
+                inventoryItem = getItemBuilder().processItem(
+                        player,
+                        item
+                );
+            } else {
+                inventoryItem = getItemBuilder().processItem(
+                        player,
+                        item.copy()
+                );
+            }
 
             ItemStack itemStack = inventoryItem.getItemStack();
 

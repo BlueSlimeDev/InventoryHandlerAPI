@@ -1,9 +1,11 @@
-package me.blueslime.inventoryhandlerapi.item;
+package me.blueslime.inventoryhandlerapi.item.list.builder;
 
+import me.blueslime.inventoryhandlerapi.item.InventoryItem;
 import me.blueslime.inventoryhandlerapi.item.action.InventoryItemAction;
+import me.blueslime.inventoryhandlerapi.item.list.DefaultInventoryItem;
 import org.bukkit.inventory.ItemStack;
 
-public class InventoryItemBuilder {
+public class DefaultInventoryItemBuilder {
     private InventoryItemAction action = null;
 
     private ItemStack itemStack = null;
@@ -14,27 +16,27 @@ public class InventoryItemBuilder {
 
     private int slot;
 
-    public InventoryItemBuilder(String identifier, int slot) {
+    public DefaultInventoryItemBuilder(String identifier, int slot) {
         this.identifier = identifier;
         this.slot = slot;
     }
 
-    public InventoryItemBuilder slot(int slot) {
+    public DefaultInventoryItemBuilder slot(int slot) {
         this.slot = slot;
         return this;
     }
 
-    public InventoryItemBuilder action(InventoryItemAction action) {
+    public DefaultInventoryItemBuilder action(InventoryItemAction action) {
         this.action = action;
         return this;
     }
 
-    public InventoryItemBuilder item(ItemStack itemStack) {
+    public DefaultInventoryItemBuilder item(ItemStack itemStack) {
         this.itemStack = itemStack;
         return this;
     }
 
-    public InventoryItemBuilder cancelClick(boolean blocked) {
+    public DefaultInventoryItemBuilder cancelClick(boolean blocked) {
         this.blocked = blocked;
         return this;
     }
