@@ -33,6 +33,10 @@ public class InventoryClickListener implements Listener {
         if (event.getWhoClicked() instanceof Player) {
             ItemStack current = event.getCurrentItem();
 
+            if (current == null) {
+                return;
+            }
+
             String invId = ItemNBT.fromString(current, InventoryHandlerAPI.getCustomIdentifierPrefix() + "name");
 
             if (invId == null || invId.isEmpty()) {
