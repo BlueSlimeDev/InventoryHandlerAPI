@@ -1,6 +1,7 @@
 package me.blueslime.inventoryhandlerapi.item;
 
 import me.blueslime.inventoryhandlerapi.item.action.InventoryItemAction;
+import me.blueslime.inventoryhandlerapi.item.condition.InventoryItemCondition;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -11,6 +12,11 @@ public interface InventoryItem {
      * @return Item Action
      */
     InventoryItemAction getAction();
+
+    /**
+     * Condition handler for adding item to the player
+     */
+    InventoryItemCondition getCondition();
 
     /**
      * This method is used in the StaticInventory

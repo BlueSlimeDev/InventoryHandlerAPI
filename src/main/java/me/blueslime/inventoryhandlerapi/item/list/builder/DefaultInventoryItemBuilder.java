@@ -2,10 +2,12 @@ package me.blueslime.inventoryhandlerapi.item.list.builder;
 
 import me.blueslime.inventoryhandlerapi.item.InventoryItem;
 import me.blueslime.inventoryhandlerapi.item.action.InventoryItemAction;
+import me.blueslime.inventoryhandlerapi.item.condition.InventoryItemCondition;
 import me.blueslime.inventoryhandlerapi.item.list.DefaultInventoryItem;
 import org.bukkit.inventory.ItemStack;
 
 public class DefaultInventoryItemBuilder {
+    private InventoryItemCondition condition = null;
     private InventoryItemAction action = null;
 
     private ItemStack itemStack = null;
@@ -31,6 +33,11 @@ public class DefaultInventoryItemBuilder {
         return this;
     }
 
+    public DefaultInventoryItemBuilder condition(InventoryItemCondition condition) {
+        this.condition = condition;
+        return this;
+    }
+
     public DefaultInventoryItemBuilder item(ItemStack itemStack) {
         this.itemStack = itemStack;
         return this;
@@ -43,11 +50,12 @@ public class DefaultInventoryItemBuilder {
 
     public InventoryItem build() {
         return DefaultInventoryItem.fromItem(
-                identifier,
-                slot,
-                itemStack,
-                blocked,
-                action
+            identifier,
+            slot,
+            itemStack,
+            blocked,
+            action,
+            condition
         );
     }
 }

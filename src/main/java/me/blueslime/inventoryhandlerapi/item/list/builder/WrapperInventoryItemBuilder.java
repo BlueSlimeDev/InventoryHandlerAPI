@@ -2,10 +2,12 @@ package me.blueslime.inventoryhandlerapi.item.list.builder;
 
 import me.blueslime.inventoryhandlerapi.item.InventoryItem;
 import me.blueslime.inventoryhandlerapi.item.action.InventoryItemAction;
+import me.blueslime.inventoryhandlerapi.item.condition.InventoryItemCondition;
 import me.blueslime.inventoryhandlerapi.item.list.WrapperInventoryItem;
 import me.blueslime.utilitiesapi.item.ItemWrapper;
 
 public class WrapperInventoryItemBuilder {
+    private InventoryItemCondition condition = null;
     private InventoryItemAction action = null;
 
     private ItemWrapper wrapper = null;
@@ -41,13 +43,19 @@ public class WrapperInventoryItemBuilder {
         return this;
     }
 
+    public WrapperInventoryItemBuilder condition(InventoryItemCondition condition) {
+        this.condition = condition;
+        return this;
+    }
+
     public InventoryItem build() {
         return WrapperInventoryItem.fromItem(
-                identifier,
-                slot,
-                wrapper,
-                blocked,
-                action
+            identifier,
+            slot,
+            wrapper,
+            blocked,
+            action,
+            condition
         );
     }
 }

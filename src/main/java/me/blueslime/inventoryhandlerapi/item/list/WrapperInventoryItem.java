@@ -1,6 +1,7 @@
 package me.blueslime.inventoryhandlerapi.item.list;
 
 import me.blueslime.inventoryhandlerapi.item.InventoryItem;
+import me.blueslime.inventoryhandlerapi.item.condition.InventoryItemCondition;
 import me.blueslime.inventoryhandlerapi.item.list.builder.DefaultInventoryItemBuilder;
 import me.blueslime.inventoryhandlerapi.item.action.InventoryItemAction;
 import me.blueslime.inventoryhandlerapi.item.list.builder.WrapperInventoryItemBuilder;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class WrapperInventoryItem implements InventoryItem {
+    private final InventoryItemCondition condition;
     private final InventoryItemAction action;
 
     private final ItemWrapper wrapper;
@@ -19,8 +21,9 @@ public class WrapperInventoryItem implements InventoryItem {
 
     private final int slot;
 
-    private WrapperInventoryItem(String identifier, int slot, ItemWrapper wrapper, boolean blocked, InventoryItemAction action) {
+    private WrapperInventoryItem(String identifier, int slot, ItemWrapper wrapper, boolean blocked, InventoryItemAction action, InventoryItemCondition condition) {
         this.identifier = identifier;
+        this.condition = condition;
         this.wrapper = wrapper;
         this.blocked = blocked;
         this.action = action;
@@ -28,30 +31,31 @@ public class WrapperInventoryItem implements InventoryItem {
 
     }
 
-    public static InventoryItem fromItem(String identifier, int slot, ItemWrapper wrapper, boolean blockedItem, InventoryItemAction action) {
+    public static InventoryItem fromItem(String identifier, int slot, ItemWrapper wrapper, boolean blockedItem, InventoryItemAction action, InventoryItemCondition condition) {
         return new WrapperInventoryItem(
-                identifier,
-                slot,
-                wrapper,
-                blockedItem,
-                action
+            identifier,
+            slot,
+            wrapper,
+            blockedItem,
+            action,
+            condition
         );
     }
 
     public static InventoryItem fromItem(String identifier, int slot, ItemWrapper wrapper, boolean blockedItem) {
-        return fromItem(identifier, slot, wrapper, blockedItem, null);
+        return fromItem(identifier, slot, wrapper, blockedItem, null, null);
     }
 
     public static InventoryItem fromItem(String identifier, int slot, ItemWrapper wrapper) {
-        return fromItem(identifier, slot, wrapper, false, null);
+        return fromItem(identifier, slot, wrapper, false, null, null);
     }
 
     public static InventoryItem fromItem(String identifier, ItemWrapper wrapper, boolean blockedItem) {
-        return fromItem(identifier, -1, wrapper, blockedItem, null);
+        return fromItem(identifier, -1, wrapper, blockedItem, null, null);
     }
 
     public static InventoryItem fromItem(String identifier, ItemWrapper wrapper) {
-        return fromItem(identifier, -1, wrapper, false, null);
+        return fromItem(identifier, -1, wrapper, false, null, null);
     }
 
     public static DefaultInventoryItemBuilder builder(String identifier, int slot) {
@@ -64,19 +68,28 @@ public class WrapperInventoryItem implements InventoryItem {
 
     public WrapperInventoryItemBuilder asBuilder() {
         return new WrapperInventoryItemBuilder(
-                this.identifier,
-                this.slot
+            this.identifier,
+            this.slot
         ).action(
-                this.action
+            this.action
         ).cancelClick(
-                this.blocked
+            this.blocked
         ).item(
-                this.wrapper
+            this.wrapper
+        ).condition(
+            this.condition
         );
     }
 
     public InventoryItemAction getAction() {
         return action;
+    }
+
+    /**
+     * Condition handler for adding item to the player
+     */
+    public InventoryItemCondition getCondition() {
+        return condition;
     }
 
     public ItemStack getItemStack() {
@@ -99,11 +112,12 @@ public class WrapperInventoryItem implements InventoryItem {
     @Override
     public InventoryItem copy() {
         return new WrapperInventoryItem(
-                this.identifier,
-                this.slot,
-                this.wrapper.clone(),
-                this.blocked,
-                this.action
+            this.identifier,
+            this.slot,
+            this.wrapper.clone(),
+            this.blocked,
+            this.action,
+            this.condition
         );
     }
 
@@ -112,15 +126,23 @@ public class WrapperInventoryItem implements InventoryItem {
     }
 
     public InventoryItem clone(String identifier, int slot) {
-        return new WrapperInventoryItem(identifier, slot, this.wrapper, this.blocked, this.action);
+        return new WrapperInventoryItem(identifier, slot, this.wrapper, this.blocked, this.action, this.condition);
     }
 
     public InventoryItem clone(String identifier, InventoryItemAction action) {
-        return new WrapperInventoryItem(identifier, this.slot, this.wrapper, this.blocked, action);
+        return new WrapperInventoryItem(identifier, this.slot, this.wrapper, this.blocked, action, this.condition);
+    }
+
+    public InventoryItem clone(String identifier, InventoryItemCondition condition) {
+        return new WrapperInventoryItem(identifier, this.slot, this.wrapper, this.blocked, this.action, condition);
+    }
+
+    public InventoryItem clone(String identifier, InventoryItemAction action, InventoryItemCondition condition) {
+        return new WrapperInventoryItem(identifier, this.slot, this.wrapper, this.blocked, action, condition);
     }
 
     public InventoryItem clone(String identifier, ItemWrapper wrapper) {
-        return new WrapperInventoryItem(identifier, this.slot, wrapper, this.blocked, this.action);
+        return new WrapperInventoryItem(identifier, this.slot, wrapper, this.blocked, this.action, this.condition);
     }
 
     @Override

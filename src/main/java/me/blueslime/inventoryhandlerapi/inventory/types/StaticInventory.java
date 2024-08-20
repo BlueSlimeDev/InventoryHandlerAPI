@@ -2,9 +2,11 @@ package me.blueslime.inventoryhandlerapi.inventory.types;
 
 import me.blueslime.inventoryhandlerapi.InventoryHandlerAPI;
 import me.blueslime.inventoryhandlerapi.inventory.CustomInventory;
+import me.blueslime.inventoryhandlerapi.inventory.player.PlayerItem;
 import me.blueslime.inventoryhandlerapi.item.InventoryItem;
 
 import me.blueslime.utilitiesapi.item.nbt.ItemNBT;
+import me.blueslime.utilitiesapi.utils.consumer.PluginConsumer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -52,6 +54,16 @@ public class StaticInventory extends CustomInventory {
                         "true"
                 );
             }
+
+            if (inventoryItem.getCondition() != null) {
+                PluginConsumer.ReturnablePluginConsumer<Boolean, PlayerItem> consumer = inventoryItem.getCondition().getCondition();
+                if (consumer != null) {
+                    if (!consumer.accept(PlayerItem.build(inventoryItem, player))) {
+                        return;
+                    }
+                }
+            }
+
             player.getInventory().setItem(
                     inventoryItem.getSlot(),
                     itemStack
